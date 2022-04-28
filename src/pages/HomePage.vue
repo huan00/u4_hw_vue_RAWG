@@ -46,7 +46,7 @@ import GameCard from '../components/GameCard.vue'
       async getGenres() {
         const res = await axios.get(`https://api.rawg.io/api/genres?key=${this.API_KEY}`)
         this.genres = res.data.results
-        console.log(this.genres)
+
       },
       async getSearchResults(e) {
         e.preventDefault()

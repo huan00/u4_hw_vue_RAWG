@@ -8,7 +8,7 @@
       <!-- Router View Goes Here -->
       <!-- <router-view  -->
         
-        <router-view  header="RAWG"> </router-view>
+        <router-view ></router-view>
     </main>
   </div>
 </template>

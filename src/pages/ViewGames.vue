@@ -55,7 +55,7 @@ import GameCard from '../components/GameCard.vue'
         for(let i = 0; i <= this.pageNumber; i++){
           this.pageArr[i] = i
         }
-        console.log(this.pageNumber)
+
       
       },
       handleSelect(e){
@@ -99,8 +99,7 @@ import GameCard from '../components/GameCard.vue'
   margin: 0 auto;
 }
 .page-numbers {
-  position: relative;
-  bottom: -10px; 
+  
   cursor: pointer;
   font-size: 1.3em;
 }
