@@ -1,7 +1,7 @@
 <template>
   <div v-if="platforms" class="container-grid">
-      <div v-for="(data, index) in platforms" :key="data.id">
-        <PlatformCard v-if="index >= lastDisplay && index < currentDisplay" :result="data" @click="selectPlatform(data.id)"/>
+      <div v-for="(data) in pageArray" :key="data.id">
+        <PlatformCard  :result="data" @click="selectPlatform(data.id)"/>
       </div>
       <div class='pagination'>
       <p v-for=" page in pageNumber" :key="page" @click='handlePage(page)'>{{page}}</p>
@@ -23,6 +23,7 @@ export default {
     API_KEY: process.env.VUE_APP_RAWG_KEY,
     platforms: [],
     pageNumber: '',
+    pageArray: [],
     currentPage: 1,
     lastDisplay: 0,
     currentDisplay: 6
@@ -47,6 +48,7 @@ export default {
     displayPage (){
       this.lastDisplay = (this.currentPage - 1) * 6
       this.currentDisplay = this.currentPage * 6
+      this.pageArray = this.platforms.slice(this.lastDisplay,this.currentDisplay)
     }
   }
 

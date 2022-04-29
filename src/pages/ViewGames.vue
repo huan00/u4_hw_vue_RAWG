@@ -9,8 +9,8 @@
       </select>
     </form>
     <div className="container-grid" >
-      <div v-for="(game, index ) in games" :key="game.id">
-        <GameCard  v-if="index >= lastDisplay && index < currentDisplay"  :result="game" :genre='true'
+      <div v-for="game in pageArray" :key="game.id">
+        <GameCard  :result="game" :genre='true'
           @click="selectGame(game.id)"/>
         </div>
       
@@ -40,7 +40,7 @@ import GameCard from '../components/GameCard.vue'
       sort: '',
       pageNumber: '',
       currentPage: 1,
-      pageArr: [],
+      pageArray: [],
       lastDisplay: 0,
       currentDisplay: 6
     }),
@@ -77,6 +77,7 @@ import GameCard from '../components/GameCard.vue'
       displayPage (){
         this.lastDisplay = (this.currentPage - 1) * 6
         this.currentDisplay = this.currentPage * 6
+        this.pageArray = this.games.slice(this.lastDisplay, this.currentDisplay)
       }
     }
   }

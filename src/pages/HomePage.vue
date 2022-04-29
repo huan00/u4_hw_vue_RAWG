@@ -50,7 +50,8 @@ import GameCard from '../components/GameCard.vue'
       pageNumber: '',
       currentPage: 1,
       lastDisplay: 0,
-      currentDisplay: 6
+      currentDisplay: 6,
+      pageArray: []
     }),
     mounted() {
       this.getGenres()
