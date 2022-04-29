@@ -49,7 +49,6 @@ import GameCard from '../components/GameCard.vue'
       searched: false,
       pageNumber: '',
       currentPage: 1,
-    
       lastDisplay: 0,
       currentDisplay: 6
     }),
@@ -67,15 +66,12 @@ import GameCard from '../components/GameCard.vue'
         e.preventDefault()
         const res = await axios.get(`https://api.rawg.io/api/games?key=${this.API_KEY}&search=${this.searchQuery}`)
         this.searchResults = res.data.results
-        console.log(res.data.results)
         this.searched = true
       },
       handleChange(event) {
         this.searchQuery = event.target.value
-        console.log(this.searchQuery)
       },
       selectGame(gameId) {
-        console.log(gameId)
         this.$router.push(`/details/${gameId}`)
       },
       selectGenre(genreId){
