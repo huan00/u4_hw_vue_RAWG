@@ -21,7 +21,7 @@
       
     </div>
     <div  class='page'>
-      <span v-for="page in pageNumber" :key="page" @click="handlePage(page)" class='page-numbers'>{{page}}</span>
+      <p v-for="page in pageNumber" :key="page" @click="handlePage(page)" class='page-numbers'>{{page}}</p>
     </div>
     <div class="paginate">
   </div>
@@ -52,9 +52,6 @@ import GameCard from '../components/GameCard.vue'
 
         this.games = res.data.results
         this.pageNumber = Math.ceil(this.games.length / 6)
-        for(let i = 0; i <= this.pageNumber; i++){
-          this.pageArr[i] = i
-        }
 
       
       },
@@ -90,9 +87,14 @@ import GameCard from '../components/GameCard.vue'
   display:flex;
   flex-direction: row;
   align-content: center;
-  justify-content: space-around;
+  justify-content: center;
   
-  width: 40%;
+  width: 100%;
+  position: absolute;
+  top: 95%,
+}
+.page *{
+  margin: 0 10px;
 }
 
 .genreGame{

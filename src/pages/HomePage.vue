@@ -8,16 +8,25 @@
       </form>
       <h2>Search Results</h2>
       <section class="search-results container-grid">
-        <GameCard v-for="result in searchResults" :key="result.id" :result="result" @click="selectGame(result.id)" :genre="false"/>
+        <div v-for="(result, index) in searchResults" :key="result.id" >
+          <GameCard v-if="index >= lastDisplay && index < currentDisplay" :result="result" @click="selectGame(result.id)" :genre="false"/>
+        </div>
+        <div class='pagination' v-if="searched === true">
+      <p v-for=" page in pageNumber" :key="page" @click='handlePage(page)'>{{page}}</p>
+        </div>
       </section>
     </div>
 
     <div v-if="searched === false" class="genres">
       <h2>Genres</h2>
-      <section class="container-grid">
-        
-        <GenreCard v-for="genre in genres" :key="genre.id" v-bind:genre="genre" @click="selectGenre(genre.id)" />
+      <section  class="container-grid"   >
+        <div v-for="(genre, index) in genres" :key="genre.id">
+          <GenreCard v-if="index >= lastDisplay && index < currentDisplay" v-bind:genre="genre" @click="selectGenre(genre.id)" />
+        </div>
       </section>
+      <div class='pagination'>
+      <p v-for=" page in pageNumber" :key="page" @click='handlePage(page)'>{{page}}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -37,7 +46,12 @@ import GameCard from '../components/GameCard.vue'
       genres: [],
       searchQuery: '',
       searchResults: [],
-      searched: false
+      searched: false,
+      pageNumber: '',
+      currentPage: 1,
+    
+      lastDisplay: 0,
+      currentDisplay: 6
     }),
     mounted() {
       this.getGenres()
@@ -46,6 +60,7 @@ import GameCard from '../components/GameCard.vue'
       async getGenres() {
         const res = await axios.get(`https://api.rawg.io/api/genres?key=${this.API_KEY}`)
         this.genres = res.data.results
+        this.pageNumber = Math.ceil(this.genres.length / 6)
 
       },
       async getSearchResults(e) {
@@ -65,7 +80,32 @@ import GameCard from '../components/GameCard.vue'
       },
       selectGenre(genreId){
         this.$router.push(`/games/${genreId}`)
+      },
+      handlePage(page){
+        this.currentPage = page
+        this.displayPage()
+      },
+      displayPage (){
+        this.lastDisplay = (this.currentPage - 1) * 6
+        this.currentDisplay = this.currentPage * 6
       }
     }
   }
 </script>
+
+<style lang="postcss">
+.pagination {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.3em;
+
+  position: absolute;
+  top: 90%;
+  
+}
+.pagination * {
+  margin: 0 10px;
+}
+</style>
